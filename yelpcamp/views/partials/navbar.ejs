@@ -1,22 +1,27 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">YelpCamp</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/campgrounds">Campgrounds</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/campgrounds/new">New  Campgrounds</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-    </div>
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+          <a href="#" class="navbar-brand">Yelpcamp</a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+              <div class="navbar-nav">
+                  <a href="/campgrounds" class="nav-item nav-link active">Home</a>
+                  <a href="/campgrounds" class="nav-item nav-link">campgrounds</a>
+                  <a href="/campgrounds/new" class="nav-item nav-link">new campground</a>
+                 
+              </div>
+              <div class="navbar-nav ms-auto">
+                <% if(!currentuser){ %> 
+                  <a href="/login" class="nav-item nav-link">Login</a>
+                  <a href="/register" class="nav-item nav-link">Register</a>
+                  <% } else{ %> 
+                  <a href="/logout" class="nav-item nav-link">logout</a>
+                  <% } %> 
+              </div>
+              
+          </div>
+      </div>
   </nav>
+

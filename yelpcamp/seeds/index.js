@@ -23,6 +23,7 @@ const seedDB=async () =>{
         title:` ${feel[Math.floor(Math.random() * feel.length)]}  ${places[Math.floor(Math.random() * places.length)]}`,
 
         image:'https://source.unsplash.com/collection/8651603',
+        author:'61f686313b552e5dfc965979',
         
         description: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, libero alia deserunt doloressimilique qui Voluptatibus consequatur in, molestiae omnis assumenda fuga, maxime saepe ut explicabo perferendis numquam veritatis doloribus!",
          

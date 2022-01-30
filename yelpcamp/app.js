@@ -15,6 +15,30 @@ const flash=require('connect-flash');
 
 const app = express();
 
+
+
+const { Campgroundschema,reviewschema } = require("./schemas.js"); //this schema is for servers side joi validations
+
+const campground = require("./models/campground");
+const review = require("./models/review");
+
+const camprouter =require('./routes/campground')
+const userrouter =require('./routes/users')
+const reviewrouter =require('./routes/review')
+const passport=require('passport');
+const localstrategy=require('passport-local');
+const user=require('./models/user');
+
+const db = mongoose.connect(
+  "mongodb+srv://rishabh:yelpcamp@cluster0.pn1oe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+);
+
+
+db.then(() => {
+  console.log(" database connected");
+});
+
+
 app.engine("ejs", ejsmate);
 
 app.set("view engine", "ejs");
@@ -23,23 +47,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride("_method"));
-
-const { Campgroundschema,reviewschema } = require("./schemas.js"); //this schema is for servers side joi validations
-
-const campground = require("./models/campground");
-const review = require("./models/review");
-
-const camprouter =require('./routes/campground');
-
-const reviewrouter =require('./routes/review')
-
-const db = mongoose.connect(
-  "mongodb+srv://rishabh:yelpcamp@cluster0.pn1oe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-);
-
-db.then(() => {
-  console.log(" database connected");
-});
 
 const sessionconfig={
   secret:'This should be a Secret',
@@ -54,21 +61,35 @@ const sessionconfig={
 
 app.use(session(sessionconfig));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localstrategy(user.authenticate()));
 
-//by this we are making the key values local
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
 
+//by this we are making the key values local to every route i.e success ,error ,currentuser
 app.use((req,res,next)=>{
+  //console.log(req.session);
+res.locals.returnto=req.user;
+res.locals.currentuser=req.user;
+console.log(req.user);
 res.locals.success=req.flash('success');
 res.locals.error=req.flash('error');
 next();
 })
 
-app.use('/campgrounds',camprouter);
+//forwding to their respective routes
 
-app.use('/campgrounds/:id/reviews',reviewrouter)
+app.use('/campgrounds',camprouter);
+app.use('/campgrounds/:id/reviews',reviewrouter);
+app.use('/',userrouter);
 
 app.use(express.static('public'));
 app.set(express.static(path.join(__dirname, "public")));
+
+
+
 
 app.get("/", (req, res) => {                   //homepage
   res.render("home");

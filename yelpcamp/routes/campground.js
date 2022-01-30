@@ -7,6 +7,10 @@ const campground = require("../models/campground");
 const review = require("../models/review");
 const joi = require("joi");
 const { Campgroundschema,reviewschema } = require("../schemas.js"); //this schema is for servers side joi validations
+const {isloggedin}=require('../middleware')
+
+const passport = require('passport');
+
 
 const validatecampground = (req, res, next) => {         //    it will validate every async function  of campgroundschema
     const { error } = Campgroundschema.validate(req.body);
@@ -22,7 +26,7 @@ const validatecampground = (req, res, next) => {         //    it will validate 
 
 
  //update
-router.put("/:id",validatecampground,catchasync(async (req, res) => {
+router.put("/:id",isloggedin,validatecampground,catchasync(async (req, res) => {
       const { id } = req.params;
   
       const newcampground = await campground.findByIdAndUpdate(id, {...req.body.campground,});
@@ -34,7 +38,7 @@ router.put("/:id",validatecampground,catchasync(async (req, res) => {
   
    //delete campgrounds
 
-  router.delete("/:id",catchasync(async (req, res) => {
+  router.delete("/:id",isloggedin,catchasync(async (req, res) => {
       const { id } = req.params;
       const p = await campground.findByIdAndDelete(id);
       req.flash('success','Succesfully deleted Camground');
@@ -51,16 +55,18 @@ router.put("/:id",validatecampground,catchasync(async (req, res) => {
       res.render("campgrounds/index", { campgrounds });
     })
   );
-   ////it will show new page
-  router.get("/new", (req, res) => {  res.render("campgrounds/new");
+                                                                               ////it will show new page
+  router.get("/new" ,isloggedin,(req, res) => {  
+    
+    res.render("campgrounds/new");
   });
                                                               //it will show a particular camp 
   
   router.get("/:id",catchasync(async (req, res) => {
       const { id } = req.params;
   
-      const foundcampground = await campground.findById(id).populate('reviews');
-
+      const foundcampground = await campground.findById(id).populate('reviews').populate('author');
+        //console.log(foundcampground);
       if(!foundcampground)
       {
         req.flash('error','Cannot find that campground')
@@ -71,7 +77,7 @@ router.put("/:id",validatecampground,catchasync(async (req, res) => {
     })
   );
                                                                                 //it will show edit page
-  router.get("/:id/edit",
+  router.get("/:id/edit",isloggedin,
     catchasync(async (req, res) => {
       const { id } = req.params;
   
@@ -84,13 +90,15 @@ router.put("/:id",validatecampground,catchasync(async (req, res) => {
       res.render("campgrounds/edit", { campground: foundcampground });
     })
   );
-                                //it will make a new camp 
-  router.post("/",validatecampground,catchasync(async (req, res) => {
+                                                                       //it will make a new camp 
+  router.post("/",validatecampground,isloggedin,catchasync(async (req, res) => {
       //if(!req.campground) throw new expresserror('invalid campground data',400);
-      
+
+     
 
       const newcampground = new campground(req.body.campground);
-
+      newcampground.author=req.user._id;
+      //console.log()
       
       await newcampground.save();
       
