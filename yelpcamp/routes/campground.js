@@ -8,124 +8,37 @@ const review = require("../models/review");
 const joi = require("joi");
 const { Campgroundschema,reviewschema } = require("../schemas.js"); //this schema is for servers side joi validations
 const {isloggedin,isAuthor,validatecampground}=require('../middleware')
-
+const{index,updatecamp,deletecamp,showcamp,rendereditform,rendernewform,newcamp}=require('../controllers/campgrounds')
 const passport = require('passport');
 
 
+  //it will show home page
   
+  router.get("/",catchasync(index));
 
+//update
 
-                                                                       //update
-
-router.put("/:id",isloggedin,validatecampground,isAuthor,catchasync(async (req, res) => {
-      
-  const { id } = req.params;
-            const thiscampground= await campground.findById(id);
-
-
-          
-      const newcampground = await campground.findByIdAndUpdate(id, {...req.body.campground,});
-      req.flash('success','Succesfully updated  Camground');
-      res.redirect(`/campgrounds/${newcampground._id}`);
-    
-  
-
-}));
+router.put("/:id",isloggedin,validatecampground,isAuthor,catchasync(updatecamp));
   
   
-                                                       //delete campgrounds
+ //delete campgrounds
 
-  router.delete("/:id",isloggedin,isAuthor,catchasync(async (req, res) => {
-      const { id } = req.params;
-      const thiscampground= await campground.findById(id);
-
-
-        
-      const p = await campground.findByIdAndDelete(id);
-      req.flash('success','Succesfully deleted Camground');
-      res.redirect("/campgrounds");
-         
-
-         
-    })
+  router.delete("/:id",isloggedin,isAuthor,catchasync(deletecamp)
   );
   
   
-                                                  //it will show home page
-  
-  router.get("/",catchasync(async (req, res) => {
-      const campgrounds = await campground.find({});
-  
-      res.render("campgrounds/index", { campgrounds });
-    })
-  );
-                                                                               ////it will show new page
-  router.get("/new" ,isloggedin,(req, res) => {  
-    
-    res.render("campgrounds/new");
-  });
+   
+   ////it will show new page
+  router.get("/new" ,isloggedin,rendernewform);
                                                               //it will show a particular camp 
   
-  router.get("/:id",catchasync(async (req, res) => {
-      const { id } = req.params;
-  
-      const foundcampground = await campground.findById(id).populate({
-        path:'reviews',
-        populate:{
-
-          path:'author'
-        }
-      }).populate('author');
-        
-      if(!foundcampground)
-      {
-        req.flash('error','Cannot find that campground')
-        res.redirect('/campgrounds');
-      }
-    
-      res.render("campgrounds/show", { campground: foundcampground });
-    })
+  router.get("/:id",catchasync(showcamp)
   );
                                                                                 //it will show edit page
-  router.get("/:id/edit",isloggedin,isAuthor,catchasync(async (req, res) => {
-      const { id } = req.params;
-      const thiscampground= await campground.findById(id);
-      
-      
-
-      
-       
-      const foundcampground = await campground.findById(id);
-      if(!foundcampground)
-      {
-        req.flash('error','Cannot find that campground')
-        res.redirect('/campgrounds');
-      }
-      else{
-      res.render("campgrounds/edit", { campground: foundcampground });
-      }
-    }
-
-
-  ));
+  router.get("/:id/edit",isloggedin,isAuthor,catchasync(rendereditform));
   
   
                                                                        //it will make a new camp 
-  router.post("/",validatecampground,isloggedin,catchasync(async (req, res) => {
-      //if(!req.campground) throw new expresserror('invalid campground data',400);
-
-     
-
-      const newcampground = new campground(req.body.campground);
-      newcampground.author=req.user._id;
-      //console.log()
-      
-      await newcampground.save();
-      
-      req.flash('success','Succesfully made a new Camground');
-
-      res.redirect(`/campgrounds/${newcampground._id}`);
-    })
-  );
+  router.post("/",validatecampground,isloggedin,catchasync(newcamp));
 
   module.exports=router;
