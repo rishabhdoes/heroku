@@ -19,6 +19,7 @@ const CampgroundSchema =new Schema({
         }
     ]
 })
+//mongoose middleware
 CampgroundSchema.post('findOneAndDelete',async function(doc){
     if(doc){
         await review.deleteMany({

@@ -73,7 +73,7 @@ app.use((req,res,next)=>{
   //console.log(req.session);
 res.locals.returnto=req.user;
 res.locals.currentuser=req.user;
-console.log(req.user);
+//console.log(req.user);
 res.locals.success=req.flash('success');
 res.locals.error=req.flash('error');
 next();
