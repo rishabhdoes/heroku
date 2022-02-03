@@ -1,3 +1,9 @@
+if(process.env.NODE_ENV !=='production')
+{
+  require('dotenv').config();
+}
+
+//console.log(process.env.secret)
 const express = require("express");
 const mongoose = require("mongoose");
   
@@ -7,7 +13,7 @@ const expresserror = require("./utilities/expresserror");
 const session=require('express-session');
 const path = require("path");
 
-const methodOverride = require("method-override");
+const methodOverride = require("method-override");                                  
 const ejsmate = require("ejs-mate");
 const joi = require("joi");
 

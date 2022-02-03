@@ -10,7 +10,9 @@ const { Campgroundschema,reviewschema } = require("../schemas.js"); //this schem
 const {isloggedin,isAuthor,validatecampground}=require('../middleware')
 const{index,updatecamp,deletecamp,showcamp,rendereditform,rendernewform,newcamp}=require('../controllers/campgrounds')
 const passport = require('passport');
-
+const multer  = require('multer');
+const {storage} =require('../cloudinary');
+const upload = multer({storage});
 
   //it will show home page
   
@@ -18,7 +20,7 @@ const passport = require('passport');
 
 //update
 
-router.put("/:id",isloggedin,validatecampground,isAuthor,catchasync(updatecamp));
+router.put("/:id",isloggedin,isAuthor,upload.array('image',4),validatecampground,catchasync(updatecamp));
   
   
  //delete campgrounds
@@ -39,6 +41,8 @@ router.put("/:id",isloggedin,validatecampground,isAuthor,catchasync(updatecamp))
   
   
                                                                        //it will make a new camp 
-  router.post("/",validatecampground,isloggedin,catchasync(newcamp));
+  router.post("/",isloggedin,upload.array('image',4),validatecampground,catchasync(newcamp));
 
+
+  
   module.exports=router;
