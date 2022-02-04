@@ -13,7 +13,7 @@ db.then(()=>{
 const seedDB=async () =>{
     await campground.deleteMany({});
   
-    for(let i=0;i<50;i++)
+    for(let i=0;i<500;i++)
     {
         const r=Math.floor(Math.random()*1000);
         
@@ -35,9 +35,12 @@ const seedDB=async () =>{
             }
           ],
         author:'61f686313b552e5dfc965979',
-        Geometry:{
+        geometry:{
           type: 'Point',
-           coordinates: [ 77.21667, 28.66667 ] 
+          coordinates: 
+          [cities[r].longitude,
+           cities[r].latitude,
+          ] 
         },
         
         description: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, libero alia deserunt doloressimilique qui Voluptatibus consequatur in, molestiae omnis assumenda fuga, maxime saepe ut explicabo perferendis numquam veritatis doloribus!",

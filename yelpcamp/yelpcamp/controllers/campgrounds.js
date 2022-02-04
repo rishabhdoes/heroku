@@ -11,9 +11,9 @@ module.exports.index = async (req, res) => {
 module.exports.newcamp = async (req, res) => {
   //if(!req.campground) throw new expresserror('invalid campground data',400);
   
-  const newcampground = new campground(req.body.campground);
-  const data=await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${newcampground.location}.json?limit=1&types=place%2Cpostcode%2Caddress&access_token=${token}`);
-  newcampground.Geometry=data.data.features[0].geometry;
+const newcampground = new campground(req.body.campground);
+const data=await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${newcampground.location}.json?limit=1&types=place%2Cpostcode%2Caddress&access_token=${token}`);
+newcampground.geometry=data.data.features[0].geometry;
 
   
   newcampground.images = req.files.map((f) => ({
