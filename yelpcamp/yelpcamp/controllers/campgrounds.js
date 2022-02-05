@@ -26,7 +26,7 @@ newcampground.geometry=data.data.features[0].geometry;
 
   await newcampground.save();
 
-  console.log(newcampground)
+  
   req.flash("success", "Succesfully made a new Camground");
 
   res.redirect(`/campgrounds/${newcampground._id}`);

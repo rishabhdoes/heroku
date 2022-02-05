@@ -84,13 +84,18 @@ res.locals.currentuser=req.user;
 res.locals.success=req.flash('success');
 res.locals.error=req.flash('error');
 next();
+//console.log(req.session.returnto)
 })
 
-//forwding to their respective routes
 
+//forwding to their respective routes
+app.use('/',userrouter);
 app.use('/campgrounds',camprouter);
 app.use('/campgrounds/:id/reviews',reviewrouter);
-app.use('/',userrouter);
+app.get("/", (req, res) => {                   //homepage
+  res.render("home");
+});
+
 
 app.use(express.static('public'));
 app.set(express.static(path.join(__dirname, "public")));
@@ -98,9 +103,6 @@ app.set(express.static(path.join(__dirname, "public")));
 
 
 
-app.get("/", (req, res) => {                   //homepage
-  res.render("home");
-});
 
 
 
