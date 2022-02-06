@@ -125,7 +125,8 @@ app.all("*", (req, res, next) => {                                              
   res.status(statuscode).render("errors", { err });
 });
 
-app.listen(3000, () => {
-  console.log("serving on port 3000  ");
+const port=process.env.PORT||3000
+app.listen(port, () => {
+  console.log("serving on port   ");
 });
 
