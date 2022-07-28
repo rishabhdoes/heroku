@@ -43,7 +43,7 @@ const seedDB=async () =>{
           ] 
         },
         
-        description: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, libero alia deserunt doloressimilique qui Voluptatibus consequatur in, molestiae omnis assumenda fuga, maxime saepe ut explicabo perferendis numquam veritatis doloribus!",
+        description: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, rishabh libero alia deserunt doloressimilique qui Voluptatibus consequatur in, molestiae omnis assumenda fuga, maxime saepe ut explicabo perferendis numquam veritatis doloribus!",
          
         price:Math.floor(Math.random()*50)
         
