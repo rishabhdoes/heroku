@@ -4,6 +4,7 @@ if(process.env.NODE_ENV !=='production')
 }
 
 //console.log(process.env.secret)
+
 const express = require("express");
 const mongoose = require("mongoose");
   
@@ -88,6 +89,9 @@ next();
 })
 
 
+
+
+
 //forwding to their respective routes
 app.use('/',userrouter);
 app.use('/campgrounds',camprouter);
@@ -127,6 +131,6 @@ app.all("*", (req, res, next) => {                                              
 
 const port=process.env.PORT||3000
 app.listen(port, () => {
-  console.log("serving on port   ");
+  console.log("serving on port  port ");
 });
 

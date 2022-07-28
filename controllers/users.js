@@ -1,5 +1,6 @@
 const user=require('../models/user');
 const passport = require('passport');
+const sgMail = require('@sendgrid/mail')
 
 module.exports.renderregisterform=(req,res)=>{
     res.render('users/register')
@@ -15,7 +16,27 @@ module.exports.registeruser=async(req,res,next)=>{
        req.login(registereduser,err=>{
            if(err) return next(err);
        })
+  //sending an welcame email
   // console.log(registereduser);
+
+ console.log(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const msg = {
+  to: email, // Change to your recipient
+  from: 'rajarishabh48@gmail.com', // Change to your verified sender
+  subject: 'Welcome to yelpcamp',
+  text: ' we hope we are enjoying thhis experience',
+  html: '<strong>Welcome !!! we hope you enjoy your time and find your camp):</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+       
 
    req.flash('success',"welcome to Yelpcamp");
    res.redirect('/campgrounds')
