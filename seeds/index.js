@@ -13,7 +13,7 @@ db.then(()=>{
 const seedDB=async () =>{
     await campground.deleteMany({});
   
-    for(let i=0;i<50;i++)
+    for(let i=0;i<1;i++)
     {
         const r=Math.floor(Math.random()*1000);
         
