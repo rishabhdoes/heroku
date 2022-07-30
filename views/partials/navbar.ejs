@@ -1,23 +1,23 @@
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-          <a href="#" class="navbar-brand">Yelpcamp</a>
+          <a href="#" class="navbar-brand h5 active ">Camp Store</a>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
               <div class="navbar-nav">
-                  <a href="/" class="nav-item nav-link active">Home</a>
-                  <a href="/campgrounds" class="nav-item nav-link">campgrounds</a>
-                  <a href="/campgrounds/new" class="nav-item nav-link">new campground</a>
+                  <a href="/" class="nav-item nav-link active h5">Home</a>
+                  <a href="/campgrounds" class="nav-item nav-link h5 active ">Campgrounds</a>
+                  <a href="/campgrounds/new" class="nav-item nav-link h5 active " >Add Campground</a>
                  
               </div>
               <div class="navbar-nav ms-auto">
                 <% if(!currentuser){ %> 
-                  <a href="/login" class="nav-item nav-link">Login</a>
-                  <a href="/register" class="nav-item nav-link">Register</a>
+                  <a href="/login" class="nav-item nav-link h5 ">Login</a>
+                  <a href="/register" class="nav-item nav-link h5 ">Register</a>
                   <% } else{ %> 
-                  <a href="/logout" class="nav-item nav-link">logout</a>
+                  <a href="/logout" class="nav-item nav-link h5 ">Logout</a>
                   <% } %> 
               </div>
               

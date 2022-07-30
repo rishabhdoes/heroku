@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const campground=require('../models/campground');
 const cities=require('./cities.js');
-const {places,feel}=require('./seedHelpers');
+const {places,feel,photos}=require('./seedHelpers');
 const db=mongoose.connect('mongodb+srv://rishabh:yelpcamp@cluster0.pn1oe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
 db.then(()=>{
@@ -20,17 +20,17 @@ const seedDB=async () =>{
         const  c = new campground({
         location:`${cities[r].city} ,${cities[r].state}`,
 
-        title:` ${feel[Math.floor(Math.random() * feel.length)]}  ${places[Math.floor(Math.random() * places.length)]}`,
+        title:` ${feel[Math.floor(Math.random() * feel.length)]}  ${places[Math.floor(Math.random() * places.length)]} Camp`,
 
         images: [
             {
-              url: 'https://res.cloudinary.com/dd1l9ov9j/image/upload/v1644933200/yelpcamp/mkxbeit2cw3czj6nib6t.jpg',
-              filename: 'yelpcamp/mkxbeit2cw3czj6nib6t'
+              url: 'https://res.cloudinary.com/dd1l9ov9j/image/upload/v1659208180/yelpcamp/wpdoultaphfuwx4v2fwb.jpg',
+              filename: 'yelpcamp/wpdoultaphfuwx4v2fwb'
               
             },
             {
-              url: 'https://res.cloudinary.com/dd1l9ov9j/image/upload/v1643870412/yelpcamp/m42ngmonvq3rtmo96blm.jpg',
-              filename: 'yelpcamp/m42ngmonvq3rtmo96blm'
+              url: 'https://res.cloudinary.com/dd1l9ov9j/image/upload/v1659210105/yelpcamp/nnhqfazyj6yaid6wg1ep.jpg',
+              filename: 'yelpcamp/nnhqfazyj6yaid6wg1ep'
               
             }
           ],
@@ -42,10 +42,17 @@ const seedDB=async () =>{
            cities[r].latitude,
           ] 
         },
+        reviews:[
+          '61f81d66f3e84193bfdd392c',
+          '6200fc0aa1e9f47e3f84504f'
+        ],
         
         description: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, rishabh libero alia deserunt doloressimilique qui Voluptatibus consequatur in, molestiae omnis assumenda fuga, maxime saepe ut explicabo perferendis numquam veritatis doloribus!",
          
         price:Math.floor(Math.random()*50)
+     
+        
+
         
     });
     await c.save();

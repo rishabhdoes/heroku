@@ -20,7 +20,7 @@ const upload = multer({storage});
 
 //update
 
-router.put("/:id",isloggedin,isAuthor,upload.array('image',4),validatecampground,catchasync(updatecamp));
+  router.put("/:id",isloggedin,isAuthor,upload.array('image',4),validatecampground,catchasync(updatecamp));
   
   
  //delete campgrounds

@@ -5,11 +5,17 @@ const review =require('./review');
 
 const imageschema =new Schema({
     url:String,
-        filename:String
+    filename:String
 })
+
 imageschema.virtual('thumbnail').get(function(){
     return this.url.replace('/upload','/upload/w_200');
 })
+
+imageschema.virtual('dp').get(function(){
+    return this.url.replace('/upload','/upload/w_1100/h_500');
+})
+
 
 const opts ={toJSON: {virtuals :true}};
 
@@ -46,11 +52,11 @@ const CampgroundSchema =new Schema({
 
 //virtual components arenot stored in database they are just a modified version of data stored already in db used when it is called
 
-CampgroundSchema.virtual('properties.popUpMarkup').get(function(){
-    return `  <a href="/campgrounds/${this._id}">${this.title}</a> 
-      <p>${this.description.substring(0,40)}...</p>
-    `
-})
+// CampgroundSchema.virtual('properties.popUpMarkup').get(function(){
+//     return `  <a href="/campgrounds/${this._id}">${this.title}</a> 
+//       <p>${this.description.substring(0,40)}...</p>
+//     `
+// })
 
 
 

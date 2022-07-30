@@ -2,7 +2,9 @@ const campground = require("../models/campground");
 const {cloudinary}=require('../cloudinary')
 const axios=require('axios')
 const token=process.env.mapboxtoken
+
 module.exports.index = async (req, res) => {
+
   const campgrounds = await campground.find({});
 
   res.render("campgrounds/index", { campgrounds });
@@ -12,7 +14,9 @@ module.exports.newcamp = async (req, res) => {
   //if(!req.campground) throw new expresserror('invalid campground data',400);
   
 const newcampground = new campground(req.body.campground);
+
 const data=await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${newcampground.location}.json?limit=1&types=place%2Cpostcode%2Caddress&access_token=${token}`);
+
 newcampground.geometry=data.data.features[0].geometry;
 
   
@@ -52,10 +56,6 @@ newcampground.geometry=data.data.features[0].geometry;
     
     await thiscampground.updateOne({$pull :{images :{filename: {$in: req.body.deleteImages}}}});
    
-  
-
- 
-
   for(let filename of req.body.deleteImages)
   {
     cloudinary.uploader.destroy(filename);
