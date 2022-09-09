@@ -29,7 +29,7 @@ newcampground.geometry=data.data.features[0].geometry;
   newcampground.author = req.user._id;
 
   await newcampground.save();
-
+ console.log(newcampground);
   
   req.flash("success", "Succesfully made a new Camground");
 

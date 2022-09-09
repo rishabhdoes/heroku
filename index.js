@@ -33,6 +33,7 @@ const review = require("./models/review");
 const camprouter =require('./routes/campground')
 const userrouter =require('./routes/users')
 const reviewrouter =require('./routes/review')
+
 const passport=require('passport');
 const localstrategy=require('passport-local');
 const user=require('./models/user');

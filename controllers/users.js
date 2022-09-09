@@ -19,7 +19,7 @@ module.exports.registeruser=async(req,res,next)=>{
   //sending an welcame email
   // console.log(registereduser);
 
- console.log(process.env.SENDGRID_API_KEY);
+ //(process.env.SENDGRID_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const msg = {
   to: email, // Change to your recipient
@@ -31,14 +31,14 @@ const msg = {
 sgMail
   .send(msg)
   .then(() => {
-    console.log('Email sent')
+    //console.log('Email sent')
   })
   .catch((error) => {
     console.error(error)
   })
        
 
-   req.flash('success',"welcome to Yelpcamp");
+   req.flash('success',"welcome to CampStore");
    res.redirect('/campgrounds')
     }
 
@@ -52,10 +52,10 @@ sgMail
 }
 module.exports.loginuser=(req,res)=>{
  
-    req.flash('success','Welcome back');
+    req.flash('success',`welcome back ${req.user.username}`);
     const return_to=req.session.returnto;
     delete req.session.returnto;
-    console.log(req.session.returnto)
+    //console.log(req.session.returnto)
     const redirect_to=( return_to || '/campgrounds')
     delete req.session.returnto;
     
@@ -67,8 +67,9 @@ res.redirect(redirect_to);
 }
 
 module.exports.logoutuser=(req,res)=>{
+    
+    req.flash('success',`see you soon ${req.user.username}`);
     req.logout();
-    req.flash('success','bye bye');
     res.redirect('/');
 }
 
