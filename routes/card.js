@@ -3,16 +3,13 @@ const mongoose = require("mongoose");
 const router =express.Router();
 const catchasync = require("../utilities/catchasync");
 const expresserror = require("../utilities/expresserror");
-const campground = require("../models/campground");
-const review = require("../models/review");
+const card = require("../models/card");
+
 const joi = require("joi");
-const { Campgroundschema,reviewschema } = require("../schemas.js"); //this schema is for servers side joi validations
-const {isloggedin,isAuthor,validatecampground}=require('../middleware')
-const{index,updatecamp,deletecamp,showcamp,rendereditform,rendernewform,newcamp}=require('../controllers/campgrounds')
+const { cardschema,reviewschema } = require("../schemas.js"); //this schema is for servers side joi validations
+const {isloggedin,isAuthor,validatecard}=require('../middleware')
+const{index,updatecamp,deletecamp,showcamp,rendereditform,rendernewform,newcamp}=require('../controllers/cards')
 const passport = require('passport');
-const multer  = require('multer');
-const {storage} =require('../cloudinary');
-const upload = multer({storage});
 
   //it will show home page
   
@@ -20,12 +17,12 @@ const upload = multer({storage});
 
 //update
 
-  router.put("/:id",isloggedin,isAuthor,upload.array('image',4),validatecampground,catchasync(updatecamp));
+  router.put("/:id",isloggedin,isAuthor,catchasync(updatecamp));
   
   
- //delete campgrounds
+ //delete cards
 
-  router.delete("/:id",isloggedin,isAuthor,catchasync(deletecamp)
+  router.get("/:id/delete",isloggedin,isAuthor,catchasync(deletecamp)
   );
   
   
@@ -41,7 +38,7 @@ const upload = multer({storage});
   
   
                                                                        //it will make a new camp 
-  router.post("/",isloggedin,upload.array('image',4),validatecampground,catchasync(newcamp));
+  router.post("/",isloggedin,validatecard,catchasync(newcamp));
 
 
   

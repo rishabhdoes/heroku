@@ -1,0 +1,112 @@
+<% layout('layots/boilerplate') %>
+
+
+<style>
+
+
+    
+    .updatebtn:link, .updatebtn:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.updatebtn:hover, .updatebtn:active {
+  background-color: green;
+  color: white;
+}
+
+  
+
+</style>
+
+
+
+
+<div class="row">
+   
+
+
+
+    <div class="col-md-6 ">
+      
+
+     
+
+        <div class="card mb-3">
+
+        <div class="card-body">
+          <h4 class=" font-weight-bold text-secondary">Mess Card</h4>
+            <h3 class=" font-weight-bold text-secondary">IFC <%=card.mess%>  </h3>
+
+
+          <p class="card-text">
+            <%= card.description %>
+          </p>
+
+          
+        </div>
+        
+          
+  
+          <h4 class="list-group-item  text-muted">  ₹<%= card.price %>/meal</h4>
+        
+          <h4>
+            <%=card.author  %> 
+          </h4>
+         
+          
+          <h4>
+            Whatsapp:
+            <%=authordetail.mobile%> 
+          </h4>
+          <h4>
+            Year:
+            <%=  authordetail.year%> 
+          </h4>
+          <h4>
+            Hostel:
+            <%=  authordetail.hostel%> 
+          </h4>
+          <h4>
+            Room_no:
+            <%=  authordetail.room_no%> 
+          </h4>
+            
+          
+          <a class="updatebtn" href="<%=card._id%>/edit"><span>Update</span></a>
+
+          <a class="updatebtn" href="<%=card._id%>/delete"><span>Delete</span></a>
+
+
+      </div>
+         
+           
+    </div>
+
+
+  </div>
+
+ 
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,51 @@
+<% layout('layots/boilerplate') %> 
+<link rel="stylesheet" href="/css/otpauth.css">
+<link rel="stylesheet" href="<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+
+
+
+
+<div id="digitsContainer">
+    <form id="codeverifyForm" action="/verification"  method="post">
+        <div id="inputs">
+            <input type="text" class="digit" id="verificationCodeDigit1" minlength="1" maxlength="1" required name="o1st">
+            <input type="text" class="digit" id="verificationCodeDigit2" minlength="1" maxlength="1" required name="o2nd">
+            <input type="text" class="digit" id="verificationCodeDigit3" minlength="1" maxlength="1" required name="o3rd">
+            <input type="text" class="digit" id="verificationCodeDigit4" minlength="1" maxlength="1" required name="o4th">
+            
+        </div>
+        <button type="submit" id="verificationButton" onclick="codeverify();">Verify code</button>
+    </form>
+</div>
+
+
+<script>
+
+function codeverify() {
+ var digit1 = document.getElementById('verificationCodeDigit1').value;
+    if (digit1 == "") {
+        req.flash('error',"Otp is too short");
+        return;
+    }
+    var digit2 = document.getElementById('verificationCodeDigit2').value;
+    if (digit2 == "") {
+        req.flash('error',"Otp is too short");
+        return;
+    }
+    var digit3 = document.getElementById('verificationCodeDigit3').value;
+    if (digit3 == "") {
+        req.flash('error',"Otp is too short");
+        return;
+    }
+    var digit4 = document.getElementById('verificationCodeDigit4').value;
+    if (digit4 == "") {
+        req.flash('error',"Otp is too short");
+        return;
+    }
+    
+   }
+   $(".digit").keyup(function () {
+    $(this).next('input').focus();
+});
+
+</script>

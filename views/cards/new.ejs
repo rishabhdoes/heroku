@@ -1,0 +1,64 @@
+<% layout('layots/boilerplate') %> 
+
+<div class="row">
+
+
+    <h1 class="text-center"> New card</h1>
+
+    <div class="col-6 offset-3">
+ 
+        <form action="/cards" method="post" novalidate class="needs-validation" >
+       
+            <div class="mb-3">
+
+              
+                
+                <label class="form-label" for="mess"></label>Choose a Mess:</label>
+                <select name="card[mess]" size="3" id ="mess">
+                  <option value="A">Mess A</option>
+                  <option value="B">Mess B</option>
+                  <option value="C">Mess C</option>
+                </select>
+              
+
+            </div>
+
+           
+
+                 
+               
+                
+               <div class="mb-3">
+                <label class="form-label" for="price">Price</label>
+                 <input class="form-control" type="text"  id ="price" name="card[price]" required>
+                 <div class="valid-feedback">
+                  Looks good!
+                </div>
+               </div>
+               
+              
+               <div class="mb-3">
+                <label class="form-label" for="description">description</label>
+                <textarea  class="form-control" type="text"  id ="description" name="card[description]"  required></textarea>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+               </div>
+    
+                
+
+               
+                <button class="btn btn-success" type="submit">Add card</button>
+                
+
+              </form> 
+        
+    </div>
+
+</div>
+
+
+
+
+
+   
