@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const card=require('../models/card');
+const campground=require('../models/campground');
 const cities=require('./cities.js');
 const {places,feel,photos}=require('./seedHelpers');
 const db=mongoose.connect('mongodb+srv://rishabh:yelpcamp@cluster0.pn1oe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
@@ -11,13 +11,13 @@ db.then(()=>{
 
 
 const seedDB=async () =>{
-    await card.deleteMany({});
+    await campground.deleteMany({});
   
     for(let i=0;i<20 ;i++)
     {
         const r=Math.floor(Math.random()*1000);
         
-        const  c = new card({
+        const  c = new campground({
         location:`${cities[r].city} ,${cities[r].state}`,
 
         title:` ${feel[Math.floor(Math.random() * feel.length)]}  ${places[Math.floor(Math.random() * places.length)]} Camp`,

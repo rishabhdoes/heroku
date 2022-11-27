@@ -25,21 +25,21 @@ const app = express();
 
 
 
-const { cardschema } = require("./schemas.js"); //this schema is for servers side joi validations
+const { Campgroundschema,reviewschema } = require("./schemas.js"); //this schema is for servers side joi validations
 
-const card = require("./models/card");
+const campground = require("./models/campground");
+const review = require("./models/review");
 
-
- const cardrouter =require('./routes/card')
+const camprouter =require('./routes/campground')
 const userrouter =require('./routes/users')
-
+const reviewrouter =require('./routes/review')
 
 const passport=require('passport');
 const localstrategy=require('passport-local');
-const User=require('./models/user');
+const user=require('./models/user');
 
 const db = mongoose.connect(
-  "mongodb+srv://op:op@cluster0.mjg13.mongodb.net/mcx"
+  "mongodb+srv://rishabh:yelpcamp@cluster0.pn1oe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
 
 
@@ -72,10 +72,10 @@ app.use(session(sessionconfig));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localstrategy(User.authenticate()));
+passport.use(new localstrategy(user.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
 
 //by this we are making the key values local to every route i.e success ,error ,currentuser
 app.use((req,res,next)=>{
@@ -95,8 +95,8 @@ next();
 
 //forwding to their respective routes
 app.use('/',userrouter);
-app.use('/cards',cardrouter);
-
+app.use('/campgrounds',camprouter);
+app.use('/campgrounds/:id/reviews',reviewrouter);
 app.get("/", (req, res) => {                   //homepage
   res.render("home");
 });
@@ -132,6 +132,6 @@ app.all("*", (req, res, next) => {                                              
 
 const port=process.env.PORT||3000
 app.listen(port, () => {
-  console.log("serving on port   ",port);
+  console.log("serving on port  port ");
 });
 
