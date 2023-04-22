@@ -39,7 +39,7 @@ const localstrategy=require('passport-local');
 const User=require('./models/user');
 
 const db = mongoose.connect(
-  "mongodb+srv://op:op@cluster0.mjg13.mongodb.net/campstore"
+  "mongodb+srv://op:op@cluster0.hhigoat.mongodb.net/campstore"
 );
 
 
